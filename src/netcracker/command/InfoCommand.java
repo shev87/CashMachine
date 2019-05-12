@@ -3,11 +3,6 @@ package netcracker.command;
 import netcracker.BankAccount;
 import netcracker.CashMachine;
 import netcracker.ConsoleHelper;
-import netcracker.CurrencyManipulator;
-import netcracker.exceptions.InterruptOperationException;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class InfoCommand implements Command{

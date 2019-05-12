@@ -5,6 +5,8 @@ import netcracker.CashMachine;
 import netcracker.ConsoleHelper;
 import netcracker.exceptions.InterruptOperationException;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -26,7 +28,17 @@ public class LoginCommand implements Command{
             String s1 = ConsoleHelper.readString();
             String s2 = ConsoleHelper.readString();
             if (validCreditCards.containsKey(s1)) {
-                if (validCreditCards.getString(s1).equals(s2)) {
+                String s = "";
+                try {
+                    MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+                    byte[] bytes = messageDigest.digest(s2.getBytes());
+                    for (byte b : bytes){
+                        s += String.format("%02x", b);
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+                if (validCreditCards.getString(s1).equals(s)) {
                     ConsoleHelper.writeMessage(String.format(res.getString("success.format"), s1));
                     CashMachine cashMachine = CashMachine.getCashMachine();
                     list = cashMachine.loadBankAccounts();
