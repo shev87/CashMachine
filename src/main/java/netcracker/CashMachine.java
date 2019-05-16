@@ -12,8 +12,9 @@ public class CashMachine {
     private static CashMachine cashMachine;
     private static BankAccount bankAccount = null;
     private final Map<Integer, Integer> moneyCashMachine = new HashMap<>();
-    public static final String RESOURCE_PATH = "netcracker/resourses/";
-    private File jsonFile = new File("./src/netcracker/resourses/bankAccounts");
+    public static final String RESOURCE_PATH = "";
+    private File jsonFile = new File("./src/main/resources/bankAccounts");
+    private File file = new File("./src/main/resources/amount");
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
@@ -50,7 +51,6 @@ public class CashMachine {
 
     public Map<Integer, Integer> getMoneyCashMachine(){
         try {
-            File file = new File("./src/netcracker/resourses/amount");
             Properties properties = new Properties();
             properties.load(new FileReader(file));
             for (String key : properties.stringPropertyNames())
@@ -65,7 +65,6 @@ public class CashMachine {
 
     public void setMoneyCashMachine(Map<Integer, Integer> map){
         try {
-            File file = new File("./src/netcracker/resourses/amount");
             Properties properties = new Properties();
             for (Map.Entry<Integer, Integer> pair : map.entrySet()){
               properties.setProperty(pair.getKey().toString(), pair.getValue().toString());
